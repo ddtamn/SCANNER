@@ -16,14 +16,112 @@ window.addEventListener("load", function () {
         (result, err) => {
           if (err && !(err instanceof ZXing.NotFoundException)) {
             console.log(err);
-            this.alert(err);
           }
           if (result) {
-            console.log(result);
-            this.alert(result);
+            getGuestCode(result.text);
           }
         }
       );
     });
+
+    const supa = supabase.createClient(
+      "https://xyxsiuaxedneofkbjsej.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eHNpdWF4ZWRuZW9ma2Jqc2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzM0MjU3NTUsImV4cCI6MTk4OTAwMTc1NX0.8MBu6aioyxUwOCrpGaEXXtlznwTHgP9zafPmxVCDqAQ"
+    );
+
+    const modal = this.document.querySelector(".modal");
+    const successAudio = this.document.querySelector("#success-audio");
+    const formName = this.document.querySelector("#name");
+    const formDescription = this.document.querySelector("#description");
+    const formType = this.document.querySelector("#type");
+    const formTotalGuest = this.document.querySelector("#total_guest");
+    const timeElement = this.document.querySelector(".time");
+    const submitButton = this.document.querySelector(".submit-button");
+
+    const openModal = (data) => {
+      if (data !== null && data !== undefined) {
+        modal.style.display = "flex";
+        successAudio.play();
+        formName.value = data.name || "";
+        formDescription.value = data.description || "";
+        formTotalGuest.value = data.total_guest || 1;
+        formType.value = data.type || "";
+        let checkin_time = new Date();
+        timeElement.innerHTML = `${checkin_time.getDate()}-${
+          checkin_time.getMonth() + 1
+        }-${checkin_time.getFullYear()} | ${checkin_time.getHours()}:${checkin_time.getMinutes()}:${checkin_time.getSeconds()}`;
+      }
+    };
+
+    submitButton.addEventListener("click", () => {
+      if (formName.value.length == 0) {
+        this.alert("name required!");
+      } else {
+        insertGuest();
+      }
+    });
+
+    async function insertGuest() {
+      try {
+        let { data, error } = await supa
+          .from("guestpresent")
+          .insert([
+            {
+              name: formName.value,
+              description: formDescription.value || "TAMU UNDANGAN",
+              type: formType.value || "BASIC GUEST",
+              total_guest: formTotalGuest.value || 1,
+            },
+          ])
+          .select();
+        if (data) {
+          formName.value = "";
+          formDescription.value = "";
+          formType.value = "";
+          formTotalGuest.value = "";
+          modal.style.display = "none";
+          sendToGreeting(data[0]);
+        }
+      } catch (error) {
+        console.log(error);
+        alert("something went wrong");
+      }
+    }
+
+    function sendToGreeting(data) {
+      const channel = supa.channel("greeting").subscribe((status) => {
+        console.log(data);
+        if (status === "SUBSCRIBED") {
+          channel.send({
+            type: "broadcast",
+            event: "supa",
+            payload: data,
+          });
+        }
+      });
+    }
+
+    async function getGuestCode(code) {
+      try {
+        if (code === "rr230323fromonline") {
+          let data = [{ name: "", description: "", type: "GUEST" }];
+          openModal(data);
+          return false;
+        }
+        let { data, error } = await supa
+          .from("guestsbook")
+          .select("*")
+          .eq("guest_code", code);
+        if (error) {
+          console.log(error);
+          alert("something went wrong please try again later");
+        }
+        if (data) {
+          openModal(data[0]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   });
 });

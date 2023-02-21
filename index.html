@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="ZXing for JS" />
+    <meta name="author" content="ddtamn" />
 
-    <title>ZXing TypeScript | Decoding from camera stream</title>
+    <title>Qr Scanner | DINVITE</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
 
@@ -13,12 +13,62 @@
     <main>
       <button class="start-scanner" id="startButton">Start Scan</button>
       <video id="video" style="display: none"></video>
+      <audio id="success-audio" src="/assets/success.mp3"></audio>
     </main>
+    <div class="modal">
+      <div class="wrapper">
+        <div class="head">
+          <p class="title">CHECK IN BERHASIL</p>
+        </div>
+        <div class="body">
+          <div class="image">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Eo_circle_green_checkmark.svg/2048px-Eo_circle_green_checkmark.svg.png"
+              alt=""
+            />
+          </div>
+          <div class="form-group">
+            <label for="name" class="form-label">Guest Name</label>
+            <input type="text" id="name" name="name" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="description" class="form-label">Description</label>
+            <input
+              type="text"
+              id="description"
+              name="description"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="type" class="form-label">Guest Type</label>
+            <input type="text" id="type" name="type" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="total_guest">Jumlah Tamu</label>
+            <div class="form-count">
+              <button class="decrement">-</button>
+              <input
+                id="total_guest"
+                type="text"
+                readonly
+                value="1"
+                class="form-control"
+              />
+              <button class="increment">+</button>
+            </div>
+          </div>
+          <p style="margin-bottom: 1rem" class="time">00</p>
+          <button class="submit-button">Submit</button>
+        </div>
+      </div>
+    </div>
 
     <script
       type="text/javascript"
       src="https://unpkg.com/@zxing/library@latest/umd/index.min.js"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="./script.js"></script>
   </body>
 </html>
