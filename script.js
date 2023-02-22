@@ -37,6 +37,10 @@ window.addEventListener("load", function () {
     const formTotalGuest = this.document.querySelector("#total_guest");
     const timeElement = this.document.querySelector(".time");
     const submitButton = this.document.querySelector(".submit-button");
+    const decrementButton = this.document.querySelector(".decrement");
+    const incrementButton = this.document.querySelector(".increment");
+
+    let total_guest = 1;
 
     const openModal = (data) => {
       if (data !== null && data !== undefined) {
@@ -52,6 +56,21 @@ window.addEventListener("load", function () {
         }-${checkin_time.getFullYear()} | ${checkin_time.getHours()}:${checkin_time.getMinutes()}:${checkin_time.getSeconds()}`;
       }
     };
+
+    decrementButton.addEventListener("click", () => {
+      if (total_guest <= 0) {
+        total_guest = 0;
+        formTotalGuest.value = total_guest;
+      } else {
+        total_guest--;
+        formTotalGuest.value = total_guest;
+      }
+    });
+
+    incrementButton.addEventListener("click", () => {
+      total_guest++;
+      formTotalGuest.value = total_guest;
+    });
 
     submitButton.addEventListener("click", () => {
       if (formName.value.length == 0) {
