@@ -184,6 +184,14 @@ video {
 
 #sourceSelectPanel {
   margin-top: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .submit-button {
