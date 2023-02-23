@@ -27,7 +27,7 @@ window.addEventListener("load", function () {
     const qrLine = this.document.querySelector('.qrbox');
 
 
-    startButton.addEventListener("click", () => {
+    const startScan = () => {
       document.getElementById("video").style.display = "block";
       startButton.style.display = "none";
       qrLine.style.display = "block"
@@ -40,9 +40,14 @@ window.addEventListener("load", function () {
           }
           if (result) {
             getGuestCode(result.text);
+            codeReader.reset()
           }
         }
       );
+    }
+
+    startButton.addEventListener("click", () => {
+      startScan()
     });
 
     const supa = supabase.createClient(
@@ -126,6 +131,7 @@ window.addEventListener("load", function () {
           formTotalGuest.value = "";
           modal.style.display = "none";
           sendToGreeting(data[0]);
+          startScan()
         }
       } catch (error) {
         console.log(error);
