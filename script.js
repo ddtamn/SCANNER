@@ -7,7 +7,6 @@ window.addEventListener("load", function () {
 
     const sourceSelect = this.document.getElementById('sourceSelect');
     if (videoInputDevices.length >= 1) {
-      console.log(videoInputDevices);
       videoInputDevices.forEach((element) => {
         const sourceOption = this.document.createElement('option');
         sourceOption.text = element.label
@@ -65,10 +64,18 @@ window.addEventListener("load", function () {
     const submitButton = this.document.querySelector(".submit-button");
     const decrementButton = this.document.querySelector(".decrement");
     const incrementButton = this.document.querySelector(".increment");
-    const closeButton = this.document.querySelector('.close');
+    const closeButton = this.document.querySelector('.modal .close');
+    const closeButtonError = this.document.querySelector('.modalError .close')
+    const modalError = this.document.querySelector('.modalError');
 
     closeButton.addEventListener('click', () => {
       modal.style.display = 'none'
+      startScan()
+    })
+
+    closeButtonError.addEventListener('click', () => {
+      modalError.style.display = 'none'
+      startScan()
     })
 
     let total_guest = 1;
@@ -167,7 +174,11 @@ window.addEventListener("load", function () {
           console.log(error);
           alert("something went wrong please try again later");
         }
+        if(data.length == 0) {
+          modalError.style.display = 'flex'
+        }
         if (data) {
+          
           openModal(data[0]);
         }
       } catch (error) {

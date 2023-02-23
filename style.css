@@ -63,6 +63,51 @@ video {
 
 }
 
+.modalError {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(39, 39, 39, 0.479);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.modalError .wrapper {
+  background-color: whitesmoke;
+  width: 90%;
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.modalError .close {
+  position: absolute;
+  right: 1rem;
+  top: 0.5rem;
+  border-radius: 100%;
+  color: #70a9c4;
+  font-size: 2rem;
+  font-weight: bold;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.modalError .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #ac2c23;
+}
+
 .modal {
   position: fixed;
   top: 0;
@@ -103,7 +148,7 @@ video {
   text-align: center;
 }
 
-.title {
+.modal .title {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
