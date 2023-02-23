@@ -3,7 +3,7 @@ window.addEventListener("load", function () {
   const codeReader = new ZXing.BrowserMultiFormatReader();
   console.log("ZXing code reader initialized");
   codeReader.listVideoInputDevices().then((videoInputDevices) => {
-    selectedDeviceId = videoInputDevices[1].deviceId;
+    selectedDeviceId = videoInputDevices[0].deviceId;
     console.log(videoInputDevices);
     // this.alert(JSON.stringify(videoInputDevices))
 
