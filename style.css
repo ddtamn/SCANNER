@@ -35,6 +35,7 @@ main {
 video {
   height: 100vh;
   width: 100vw;
+  pointer-events: none;
 }
 
 
@@ -48,6 +49,7 @@ video {
   filter: drop-shadow(0 0 20px #ff4000) drop-shadow(0 0 60px #ff4000);
   animation: animateLine 4s ease-in-out infinite;
   display: none;
+  pointer-events: none;
 }
 
 @keyframes animateLine {
