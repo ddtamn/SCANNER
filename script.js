@@ -6,10 +6,13 @@ window.addEventListener("load", function () {
     selectedDeviceId = videoInputDevices[0].deviceId;
 
     const startButton = this.document.getElementById("startButton");
+    const qrLine = this.document.querySelector('.qrbox');
+
 
     startButton.addEventListener("click", () => {
       document.getElementById("video").style.display = "block";
       startButton.style.display = "none";
+      qrLine.style.display = "block"
       codeReader.decodeFromVideoDevice(
         selectedDeviceId,
         "video",
@@ -39,6 +42,11 @@ window.addEventListener("load", function () {
     const submitButton = this.document.querySelector(".submit-button");
     const decrementButton = this.document.querySelector(".decrement");
     const incrementButton = this.document.querySelector(".increment");
+    const closeButton = this.document.querySelector('.close');
+
+    closeButton.addEventListener('click', () => {
+      modal.style.display = 'none'
+    })
 
     let total_guest = 1;
 
