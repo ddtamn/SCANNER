@@ -4,6 +4,8 @@ window.addEventListener("load", function () {
   console.log("ZXing code reader initialized");
   codeReader.listVideoInputDevices().then((videoInputDevices) => {
     selectedDeviceId = videoInputDevices[0].deviceId;
+    console.log(videoInputDevices);
+    this.alert(JSON.stringify(videoInputDevices))
 
     const startButton = this.document.getElementById("startButton");
     const qrLine = this.document.querySelector('.qrbox');
