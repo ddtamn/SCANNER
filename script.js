@@ -4,8 +4,24 @@ window.addEventListener("load", function () {
   console.log("ZXing code reader initialized");
   codeReader.listVideoInputDevices().then((videoInputDevices) => {
     selectedDeviceId = videoInputDevices[0].deviceId;
-    console.log(videoInputDevices);
-    // this.alert(JSON.stringify(videoInputDevices))
+
+    const sourceSelect = this.document.getElementById('sourceSelect');
+    if (videoInputDevices.length >= 1) {
+      console.log(videoInputDevices);
+      videoInputDevices.forEach((element) => {
+        const sourceOption = this.document.createElement('option');
+        sourceOption.text = element.label
+        sourceOption.value = element.deviceId
+        sourceSelect.appendChild(sourceOption);
+      })
+      
+      sourceSelect.onchange = () => {
+        selectedDeviceId = sourceSelect.value
+      }
+
+      const sourceSelectPanel = this.document.getElementById('sourceSelectPanel');
+      sourceSelectPanel.style.display = 'block'
+    }
 
     const startButton = this.document.getElementById("startButton");
     const qrLine = this.document.querySelector('.qrbox');

@@ -182,6 +182,10 @@ video {
   appearance: none;
 }
 
+#sourceSelectPanel {
+  margin-top: 1rem;
+}
+
 .submit-button {
   border-radius: 5px; /* adjust the value as needed */
   padding: 8px 20px;

@@ -12,6 +12,10 @@
   <body>
     <main>
       <button class="start-scanner" id="startButton">Start Scan</button>
+      <div id="sourceSelectPanel" style="display: none;">
+        <label for="sourceSelect" class="form-label">Source</label>
+        <select name="sourceSelect" class="form-select" id="sourceSelect"></select>
+      </div>
       <div class="qrbox"></div>
       <video id="video" style="display: none"></video>
       <audio id="success-audio" src="/assets/success.mp3"></audio>
